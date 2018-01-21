@@ -46,11 +46,11 @@ listEq l1 l2
     
 --}
 
--- Without equality. 
+-- Without equality.
 listEq' [] [] = True
 listEq' [l1] [] = False
 listEq' [] [l2] = False
-listEq' l1 l2 = (elem (head l1) l1 && (elem (head l1) l2)) && (listEq' (tail l1) (tail l2) )
+listEq' l1 l2 = (elem (head l2) l1 && (elem (head l1) l2)) && (listEq' (tail l1) (tail l2) )
 
 {--
     Discussion. 
@@ -61,7 +61,21 @@ listEq' l1 l2 = (elem (head l1) l1 && (elem (head l1) l2)) && (listEq' (tail l1)
 --}
 
 -- listEq' [1,2,3] [3,3,3]
--- 1: (elem 1 [1,2,3]) && (elem 1 [3,3,3]) = (1 && 0) = 0
--- 2: (elem 2 [2,3]) && (elem 2 [3,3])     = (1 && 0) = 0
+-- 1: (elem 3 [1,2,3]) && (elem 1 [3,3,3]) = (1 && 0) = 0
+-- 2: (elem 3 [2,3]) && (elem 2 [3,3])     = (1 && 0) = 0
 -- 3: (elem 3 [3]) && (elem 3 [3])         = (1 && 1) = 1
--- 4: 0 && 0 && 1 && (Base Case)
+-- 4: 0 && 0 && 1 && (Base Case) = 0 
+
+{--
+    clEQ shows the list of boolean values computed by listEQ'. 
+--}
+ 
+clEQ [] [] = []
+clEQ [l1] [] = [False]
+clEQ [] [l2] = [False]
+clEQ l1 l2 = (elem (head l2) l1 ):(elem (head l1) l2):(clEQ (tail l1) (tail l2) )
+-- clEQ [1,2,3] [1,2,3]
+-- clEQ [1,2,1] [1,2,3]
+-- clEQ [1,1,1] [1,2,3]
+-- clEQ [1,1,1] [2,2,2]
+-- clEQ [1,3,5] [1,2,5]

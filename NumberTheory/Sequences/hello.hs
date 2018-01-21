@@ -56,3 +56,10 @@ succFib n
     | n == 34 = n + 21
 
 -- genSeq 0 5 succFib
+
+genFunc s n ls = foldl (+) s (take n (cycle (seqDeriv ls) ) )
+
+genSeries start range ls = map (\x -> genFunc start x ls) range 
+
+--genSeries 0 [0,1..10] [1,2,3,4]
+--genSeries 0 [0,1..10] [3,2,3,2]
